@@ -1,5 +1,8 @@
 import datetime
 import time
+from colorama import init, Fore, Back, Style
+
+init(autoreset=True)
 
 t=time.localtime()
 Y=str(t.tm_year)
@@ -21,7 +24,7 @@ def title(year, month):
 
     print('-' * 50)
 
-    print('일  월  화  수  목  금  토')
+    print(Fore.RED + 'Sun' + Fore.WHITE + ' Mon Tue Wed Thu Fri ' + Fore.CYAN + 'Sat')
 
 
 def getStartDay(year, month):
@@ -52,8 +55,8 @@ def getLastDay(year, month):
 
 def body(year, month):
     startday = getStartDay(year, month)
-
     lastday = getLastDay(year, month)
+    today = int(t.tm_mday)
 
     if startday == 6:
 
@@ -64,7 +67,7 @@ def body(year, month):
         s = startday + 2
 
     c = 0
-
+    test = 0
     m = 0
 
     for k in range(6):
@@ -74,31 +77,38 @@ def body(year, month):
             c = c + 1
 
             if c < s:
-
                 print('{:>2}'.format(' '), end='  ')
 
             else:
-
                 if lastday > m:
                     m = m + 1
-
-                    print('{:>2}'.format(m), end='  ')
+                    if (c - 1) % 7 == 0:
+                        print(Fore.RED + '{:>2}'.format(m), end='  ')
+                    elif c % 7 == 0:
+                        print(Fore.CYAN + '{:>2}'.format(m), end='  ')
+                    else:
+                        if m == today:
+                            print(Back.GREEN + Fore.WHITE + '{:>2}'.format(m), end='  ')
+                        else:
+                            print('{:>2}'.format(m), end='  ')
 
         print()
 
 
 def Dal(year, month):
     title(year, month)
-
     body(year, month)
 
 
-def main():
+def calendar():
     year = eval(Y)
-
     month = eval(M)
+    startday = getStartDay(year, month)
+    lastday = getLastDay(year, month)
+    today = int(t.tm_mday)
 
-    Dal(year, month)
+    #Dal(year, month)
+    return startday, lastday, today
 
 
-main()
+# calendar()
