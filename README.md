@@ -2,6 +2,9 @@
 
 Python script that prints out a clock in ASCII art style to the console
 
+## Import:
+bs4, urllib, html5lib, keyboard, colorama 
+
 Description:
 ------------
 Resizing of the clock could be performed from code.
