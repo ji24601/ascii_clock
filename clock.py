@@ -191,7 +191,9 @@ def draw_clock(cols, lines):
     global todays
     global lastday
     global startday
-    ascii_canvas.add_text(70, 1, 'todays: ' + str(todays))
+    global Y
+    global M
+    ascii_canvas.add_text(70, 1, 'year: ' + str(Y) + ' mon: ' + str(M) + ' todays: ' + str(todays))
     startday, lastday = calendar.calendar(Y, M)
     draw_calendar(ascii_canvas, startday, lastday, todays)
 
@@ -202,6 +204,8 @@ def draw_clock(cols, lines):
 def main():
     global todays
     global lastday
+    global Y
+    global M
     lines = 40
     cols = int(lines * x_scale_ratio)
     # set console window size and screen buffer size
@@ -241,6 +245,25 @@ def main():
                 if lastday < todays:
                     todays = lastday
                 time.sleep(0.1)
+
+            elif keyboard.is_pressed('['):
+                M = M - 1
+                time.sleep(0.1)
+            
+            elif keyboard.is_pressed(']'):
+                M = M + 1
+                time.sleep(0.1)
+
+            elif keyboard.is_pressed('<'):
+                Y = Y - 1
+                time.sleep(0.1)
+
+            elif keyboard.is_pressed('>'):
+                Y = Y + 1
+                time.sleep(0.1)
+
+            # elif keyboard.is_pressed('enter'):
+
 
         except:
             print('except')
