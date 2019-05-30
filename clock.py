@@ -8,14 +8,34 @@ import os
 import time
 import math
 import datetime
+import keyboard
 from asciicanvas import AsciiCanvas
 from weather import get_weather
-from calendar import calendar
+import calendar
 from colorama import init, Fore, Back, Style
 
 init(autoreset=True)
 x_scale_ratio = 1.75
 location, temperature = get_weather()
+
+t=time.localtime()
+Y=int(t.tm_year)
+M=int(t.tm_mon)
+todays = int(t.tm_mday)
+startday = 0
+lastday = 0
+
+keys = [
+    "down arrow",
+    "up arrow",
+    "left arrow",
+    "right arrow",
+    "enter",
+    "<",
+    ">",
+    "[",
+    "]"
+]
 
 def draw_second_hand(ascii_canvas, seconds, length, fill_char):
     """
@@ -98,18 +118,16 @@ def draw_calendar(ascii_canvas, startday, lastday, today):
 
                     # msg = msg + Fore.RED + str(m).rjust(4, ' ')
                     # ascii_canvas.add_text(x, y, str(m).rjust(3, ' '))
-                    if (c - 1) % 7 == 0:
+                    if m == today:
+                        msg = msg + '  ' + Fore.GREEN + str(m).rjust(2, ' ')
+                    elif (c - 1) % 7 == 0:
                         msg = msg + Fore.RED + str(m).rjust(4, ' ')
                     #     ascii_canvas.add_text(x, y, Fore.RED + str(m).rjust(3, ' ') + Fore.WHITE)
                     elif c % 7 == 0:
                         msg = msg + Fore.CYAN + str(m).rjust(4, ' ')
                     #     ascii_canvas.add_text(x, y, Fore.CYAN + str(m).rjust(3, ' ') + Fore.WHITE)
                     else:
-                        if m == today:
-                            msg = msg + '  ' + Back.GREEN + Fore.WHITE + str(m).rjust(2, ' ')
-                    #         ascii_canvas.add_text(x, y, Back.GREEN + Fore.WHITE + str(m).rjust(3, ' ') + Back.BLACK)
-                        else:
-                            msg = msg + Fore.WHITE + str(m).rjust(4, ' ')
+                        msg = msg + Fore.WHITE + str(m).rjust(4, ' ')
                     #         ascii_canvas.add_text(x, y, str(m).rjust(3, ' '))
             # x = x + 3
         ascii_canvas.add_text(x, y, msg + Fore.WHITE)
@@ -168,23 +186,67 @@ def draw_clock(cols, lines):
     ascii_canvas.add_text(70, 9, 'ooooooooooooooooooooooooooooooooooooooooooooooooo')
 
     # draw calendar
-    startday, lastday, today = calendar()
-    draw_calendar(ascii_canvas, startday, lastday, today)
+    global todays
+    global lastday
+    global startday
+    ascii_canvas.add_text(70, 1, 'todays: ' + str(todays))
+    startday, lastday = calendar.calendar(Y, M)
+    draw_calendar(ascii_canvas, startday, lastday, todays)
 
     # print out canvas
     ascii_canvas.print_out()
 
 
 def main():
+    global todays
+    global lastday
     lines = 40
     cols = int(lines * x_scale_ratio)
     # set console window size and screen buffer size
     if os.name == 'nt':
         os.system('mode con: cols=%s lines=%s' % (cols * 2 + 1, lines + 1))
     while True:
-       os.system('cls' if os.name == 'nt' else 'clear')
-       draw_clock(cols, lines)
-       time.sleep(0.2)
+        try:        
+            # for key in keys:
+            #     if keyboard.is_pressed(key):
+            #         print(keyboard.key_to_scan_codes(key))
+            #         print(f"{key} pressed")
+
+            if keyboard.is_pressed('esc'):
+                print(key + " pressed")
+                break
+                
+            elif keyboard.is_pressed('left arrow'):
+                todays = todays - 1
+                if todays < 1:
+                    todays = 1
+                time.sleep(0.1)
+
+            elif keyboard.is_pressed('right arrow'):
+                todays = todays + 1
+                if lastday < todays:
+                    todays = lastday
+                time.sleep(0.1)
+                    
+            elif keyboard.is_pressed('up arrow'):
+                todays = todays - 7
+                if todays < 1:
+                    todays = 1
+                time.sleep(0.1)
+
+            elif keyboard.is_pressed('down arrow'):
+                todays = todays + 7
+                if lastday < todays:
+                    todays = lastday
+                time.sleep(0.1)
+
+        except:
+            print('except')
+            break
+
+        os.system('cls' if os.name == 'nt' else 'clear')
+        draw_clock(cols, lines)
+        time.sleep(0.2)
 
 
 if __name__ == '__main__':
