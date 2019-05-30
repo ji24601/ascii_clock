@@ -262,8 +262,6 @@ def main():
                 Y = Y + 1
                 time.sleep(0.1)
 
-            # elif keyboard.is_pressed('enter'):
-
 
         except:
             print('except')
