@@ -100,15 +100,15 @@ def Dal(year, month):
     body(year, month)
 
 
-def calendar():
-    year = eval(Y)
-    month = eval(M)
+def calendar(year, month):
+    # year = eval(Y)
+    # month = eval(M)
     startday = getStartDay(year, month)
     lastday = getLastDay(year, month)
     today = int(t.tm_mday)
 
     #Dal(year, month)
-    return startday, lastday, today
+    return startday, lastday
 
 
 # calendar()

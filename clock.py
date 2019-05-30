@@ -90,11 +90,17 @@ def draw_clock_face(ascii_canvas, radius, mark_char):
         ascii_canvas.add_text(x1, y1, '%s' % mark)
 
 def draw_calendar(ascii_canvas, startday, lastday, today):
-    x, y = 70, 11
 
+    x, y = 78, 11
+    ascii_canvas.add_text(x, y, Back.RED + Fore.WHITE + '[' + str(Y) + '/' + str(M).rjust(2, '0') + '/' + str(todays).rjust(2, '0') + ']' + Fore.WHITE)
+
+    x, y = 70, 12
+    ascii_canvas.add_text(x, y, '----------------------------')
+
+    x, y = 70, 13
     ascii_canvas.add_text(x, y, Fore.RED + ' Sun' + Fore.WHITE + ' Mon Tue Wed Thu Fri ' + Fore.CYAN + 'Sat' + Fore.WHITE)
 
-    y = 12
+    y = y + 1
 
     if startday == 6:
         s = 1
@@ -193,9 +199,30 @@ def draw_clock(cols, lines):
     global startday
     global Y
     global M
-    ascii_canvas.add_text(70, 1, 'year: ' + str(Y) + ' mon: ' + str(M) + ' todays: ' + str(todays))
     startday, lastday = calendar.calendar(Y, M)
     draw_calendar(ascii_canvas, startday, lastday, todays)
+
+    #draw info
+    y = 21
+    ascii_canvas.add_text(70, y, '<Infomation>')
+    ascii_canvas.add_text(70, y + 2, '  [    key:  year - 1')
+    ascii_canvas.add_text(70, y + 4, '  ]    key:  year + 1')
+    ascii_canvas.add_text(70, y + 6, '  <    key: month - 1')
+    ascii_canvas.add_text(70, y + 8, '  >    key: month + 1')
+    ascii_canvas.add_text(70, y + 10, 'enter  key:   go memo')
+    ascii_canvas.add_text(92, y + 2, '|')
+    ascii_canvas.add_text(92, y + 3, '|')
+    ascii_canvas.add_text(92, y + 4, '|')
+    ascii_canvas.add_text(92, y + 5, '|')
+    ascii_canvas.add_text(92, y + 6, '|')
+    ascii_canvas.add_text(92, y + 7, '|')
+    ascii_canvas.add_text(92, y + 8, '|')
+    ascii_canvas.add_text(92, y + 9, '|')
+    ascii_canvas.add_text(92, y + 10, '|')
+    ascii_canvas.add_text(94, y + 2, '  →   key:   day + 1')
+    ascii_canvas.add_text(94, y + 4, '  ←   key:   day - 1')
+    ascii_canvas.add_text(94, y + 6, '  ↑   key:   day - 7')
+    ascii_canvas.add_text(94, y + 8, '  ↓   key:   day + 7')
 
     # print out canvas
     ascii_canvas.print_out()
@@ -261,6 +288,9 @@ def main():
             elif keyboard.is_pressed('>'):
                 Y = Y + 1
                 time.sleep(0.1)
+
+            # elif keyboard.is_pressed('enter'):
+            #    time.sleep(0.1)
 
 
         except:
