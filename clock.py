@@ -179,6 +179,8 @@ def draw_clock(cols, lines):
     draw_hour_hand(ascii_canvas, now.hour, now.minute, hour_hand_length, fill_char=hour_hand_char)
 
     # draw weather
+    global location
+    global temperature
     ascii_canvas.add_text(70, 5, 'ooooooooooooooooooooooooooooooooooooooooooooooooo')
     ascii_canvas.add_text(70, 6, 'o                                               o')
     ascii_canvas.add_text(70, 7, 'o       ' + location + ' ' + temperature + '\"       o')
