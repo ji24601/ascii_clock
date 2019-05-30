@@ -72,7 +72,7 @@ def draw_clock_face(ascii_canvas, radius, mark_char):
 def draw_calendar(ascii_canvas, startday, lastday, today):
     x, y = 70, 11
 
-    ascii_canvas.add_text(x, y, Fore.RED + 'Sun' + Fore.WHITE + ' Mon Tue Wed Thu Fri ' + Fore.CYAN + 'Sat' + Fore.WHITE)
+    ascii_canvas.add_text(x, y, Fore.RED + ' Sun' + Fore.WHITE + ' Mon Tue Wed Thu Fri ' + Fore.CYAN + 'Sat' + Fore.WHITE)
 
     y = 12
 
@@ -84,26 +84,36 @@ def draw_calendar(ascii_canvas, startday, lastday, today):
     c = 0
     m = 0
 
+    msg = ''
+
     for k in range(6):
         for i in range(7):
             c = c + 1
             if c < s:
-                ascii_canvas.add_text(x, y, ' '.center(3, ' '))
+                x = x + 4
+                # ascii_canvas.add_text(x, y, ' '.center(4, ' '))
             else:
-                ascii_canvas.add_text(x, y, str(m).rjust(3, ' '))
                 if lastday > m:
                     m = m + 1
-                    ascii_canvas.add_text(x, y, str(m).rjust(3, ' '))
-                    # if (c - 1) % 7 == 0:
+
+                    # msg = msg + Fore.RED + str(m).rjust(4, ' ')
+                    # ascii_canvas.add_text(x, y, str(m).rjust(3, ' '))
+                    if (c - 1) % 7 == 0:
+                        msg = msg + Fore.RED + str(m).rjust(4, ' ')
                     #     ascii_canvas.add_text(x, y, Fore.RED + str(m).rjust(3, ' ') + Fore.WHITE)
-                    # elif c % 7 == 0:
+                    elif c % 7 == 0:
+                        msg = msg + Fore.CYAN + str(m).rjust(4, ' ')
                     #     ascii_canvas.add_text(x, y, Fore.CYAN + str(m).rjust(3, ' ') + Fore.WHITE)
-                    # else:
-                    #     if m == today:
+                    else:
+                        if m == today:
+                            msg = msg + '  ' + Back.GREEN + Fore.WHITE + str(m).rjust(2, ' ')
                     #         ascii_canvas.add_text(x, y, Back.GREEN + Fore.WHITE + str(m).rjust(3, ' ') + Back.BLACK)
-                    #     else:
+                        else:
+                            msg = msg + Fore.WHITE + str(m).rjust(4, ' ')
                     #         ascii_canvas.add_text(x, y, str(m).rjust(3, ' '))
-            x = x + 4
+            # x = x + 3
+        ascii_canvas.add_text(x, y, msg + Fore.WHITE)
+        msg = ''
         y = y + 1
         x = 70
 
