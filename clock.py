@@ -223,6 +223,16 @@ def draw_clock(cols, lines):
     ascii_canvas.add_text(94, y + 4, '  ←   key:   day - 1')
     ascii_canvas.add_text(94, y + 6, '  ↑   key:   day - 7')
     ascii_canvas.add_text(94, y + 8, '  ↓   key:   day + 7')
+    ascii_canvas.add_text(94, y + 10, 'slash  key:   change clock')
+
+    #draw change mode
+    x, y = 5, 2
+    ascii_canvas.add_text(x, y, Back.yellow + 'CheckOut: Anallogeu')
+    # ascii_canvas.add_text(x, y+1, 'oooooooooooooooo')
+    # ascii_canvas.add_text(x+20, y+2, Back.GREEN + 'o   anallogeu  o')
+    # ascii_canvas.add_text(x+25, y+3, 'o    digital   o')
+    # ascii_canvas.add_text(x+40, y+4, 'oooooooooooooooo')
+
 
     # print out canvas
     ascii_canvas.print_out()
@@ -289,8 +299,9 @@ def main():
                 Y = Y + 1
                 time.sleep(0.1)
 
-            # elif keyboard.is_pressed('enter'):
-            #    time.sleep(0.1)
+            #elif keyboard.is_pressed('enter'):
+
+                #time.sleep(0.1)
 
 
         except:
