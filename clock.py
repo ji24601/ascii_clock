@@ -227,7 +227,7 @@ def draw_clock(cols, lines):
 
     #draw change mode
     x, y = 5, 2
-    ascii_canvas.add_text(x, y, Back.yellow + 'CheckOut: Anallogeu')
+    ascii_canvas.add_text(x, y, Back.YELLOW + Fore.BLACK + 'CheckOut: Anallogeu'+ Fore.WHITE)
     # ascii_canvas.add_text(x, y+1, 'oooooooooooooooo')
     # ascii_canvas.add_text(x+20, y+2, Back.GREEN + 'o   anallogeu  o')
     # ascii_canvas.add_text(x+25, y+3, 'o    digital   o')
