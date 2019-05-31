@@ -13,3 +13,5 @@ f.close()
 f2 = open("새파일.txt", 'r') #저장된 내용을 출력한다.
 print(f2.read())
 f2.close()
+
+#메모 시간 추가 예정
