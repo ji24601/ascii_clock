@@ -514,7 +514,7 @@ def main():
         elif check == 0:
             draw_digital_clock(cols, lines)
         elif check == 2:
-            memo.main(cols, lines)
+            memo.main(cols, lines, Y, M, todays)
             check = savecheck
         time.sleep(0.2)
 
