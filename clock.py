@@ -9,6 +9,7 @@ import time
 import math
 import datetime
 import keyboard
+import memo
 from asciicanvas import AsciiCanvas
 from weather import get_weather
 import calendar
@@ -424,89 +425,97 @@ def draw_clock(cols, lines):
     # print out canvas
     ascii_canvas.print_out()
 
-
 def main():
     global todays
     global lastday
     global Y
     global M
+
     check = 1
+    savecheck = check
+
     lines = 40
     cols = int(lines * x_scale_ratio)
     # set console window size and screen buffer size
     if os.name == 'nt':
         os.system('mode con: cols=%s lines=%s' % (cols * 2 + 1, lines + 1))
     while True:
-        try:        
+        # try:        
             # for key in keys:
             #     if keyboard.is_pressed(key):
             #         print(keyboard.key_to_scan_codes(key))
             #         print(f"{key} pressed")
 
-            if keyboard.is_pressed('esc'):
-                print(key + " pressed")
+        if keyboard.is_pressed('esc'):
+            if check == 2:
+                check = savecheck
+            else:
                 break
-                
-            elif keyboard.is_pressed('left arrow'):
-                todays = todays - 1
-                if todays < 1:
-                    todays = 1
-                time.sleep(0.1)
-
-            elif keyboard.is_pressed('right arrow'):
-                todays = todays + 1
-                if lastday < todays:
-                    todays = lastday
-                time.sleep(0.1)
-                    
-            elif keyboard.is_pressed('up arrow'):
-                todays = todays - 7
-                if todays < 1:
-                    todays = 1
-                time.sleep(0.1)
-
-            elif keyboard.is_pressed('down arrow'):
-                todays = todays + 7
-                if lastday < todays:
-                    todays = lastday
-                time.sleep(0.1)
-
-            elif keyboard.is_pressed('<'):
-                M = M - 1
-                time.sleep(0.1)
             
-            elif keyboard.is_pressed('>'):
-                M = M + 1
-                time.sleep(0.1)
+        elif keyboard.is_pressed('left arrow'):
+            todays = todays - 1
+            if todays < 1:
+                todays = 1
+            time.sleep(0.1)
 
-            elif keyboard.is_pressed('['):
-                Y = Y - 1
-                time.sleep(0.1)
+        elif keyboard.is_pressed('right arrow'):
+            todays = todays + 1
+            if lastday < todays:
+                todays = lastday
+            time.sleep(0.1)
+                
+        elif keyboard.is_pressed('up arrow'):
+            todays = todays - 7
+            if todays < 1:
+                todays = 1
+            time.sleep(0.1)
 
-            elif keyboard.is_pressed(']'):
-                Y = Y + 1
-                time.sleep(0.1)
+        elif keyboard.is_pressed('down arrow'):
+            todays = todays + 7
+            if lastday < todays:
+                todays = lastday
+            time.sleep(0.1)
 
-            elif keyboard.is_pressed('/'):
-                if check == 1:
-                    check = 0
-                else:
-                    check = 1
+        elif keyboard.is_pressed('<'):
+            M = M - 1
+            time.sleep(0.1)
+        
+        elif keyboard.is_pressed('>'):
+            M = M + 1
+            time.sleep(0.1)
 
-            #elif keyboard.is_pressed('enter'):
+        elif keyboard.is_pressed('['):
+            Y = Y - 1
+            time.sleep(0.1)
 
-                #time.sleep(0.1)
+        elif keyboard.is_pressed(']'):
+            Y = Y + 1
+            time.sleep(0.1)
 
+        elif keyboard.is_pressed('/'):
+            if check == 1:
+                check = 0
+            else:
+                check = 1
 
-        except:
-            print('except')
-            break
+        elif keyboard.is_pressed('enter'):
+            if check != 2:
+                savecheck = check
+                check = 2
+            time.sleep(0.1)
+
+        # except:
+        #     print('except')
+        #     break
 
         os.system('cls' if os.name == 'nt' else 'clear')
         if check == 1:
             draw_clock(cols, lines)
-        else:
+        elif check == 0:
             draw_digital_clock(cols, lines)
+        elif check == 2:
+            memo.main(cols, lines)
+            check = savecheck
         time.sleep(0.2)
 
 
