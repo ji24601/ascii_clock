@@ -79,11 +79,14 @@ keys = [
     "ctrl+s"
 ]
 
-def draw_memo(cols, lines, x, y):
+def draw_memo(cols, lines, x, y, specificDate):
+    global check
     global choose
     global ascii_canvas_memo
+
     ascii_canvas = AsciiCanvas(cols * 2, lines)
 
+    ascii_canvas.add_text(0, 0, '[CHECK]: ' + str(check))
     if check == 0:
         if choose == 0:
             ascii_canvas.add_text(x, y + 0, '[Memo Read  ]')
@@ -107,7 +110,42 @@ def draw_memo(cols, lines, x, y):
 
         # print out canvas
         ascii_canvas.print_out()
+
     elif check == 1:
+        if choose == 0:
+            try:
+                f = open(specificDate +".txt", 'r')
+                for i in range(lines):
+                    line = f.readline()
+                    ascii_canvas_memo.add_text(0, i, line)
+                f.close()
+            except:
+                print()
+
+            check = 2
+        elif choose == 1:
+            try:
+                f = open(specificDate +".txt", 'r')
+                for i in range(lines):
+                    line = f.readline()
+                    ascii_canvas_memo.add_text(0, i, line)
+                f.close()
+            except:
+                print()
+                
+            check = 2
+        elif choose == 2:
+            ascii_canvas_memo.clear()
+            check = 2
+        elif choose == 3:
+            f = open(specificDate +".txt", 'w')
+            f.write('')
+            f.close()
+            check = 0
+
+        # print out canvas
+        ascii_canvas.print_out()
+    elif check == 2:
         # print out canvas
         ascii_canvas_memo.print_out()
 
@@ -123,13 +161,15 @@ def draw_memo_insert():
 def draw_memo_remove():
     return
 
-def main(cols, lines):
+def main(cols, lines, Y, M, D):
     global check
     global choose
     global memo_x, memo_y
     global ascii_canvas_memo
 
-    ascii_canvas_memo = AsciiCanvas(cols * 2, lines)
+    ascii_canvas_memo = AsciiCanvas(cols * 2, lines, fill_char='\0')
+
+    specificDate = str(Y) + '-' + str(M).rjust(2, '0') + '-' + str(D).rjust(2, '0')
 
     while True:
 
@@ -144,79 +184,50 @@ def main(cols, lines):
         #     if lastday < todays:
         #         todays = lastday
         #     time.sleep(0.1)
-        if check == 1:
+        if check == 2:
             for key in keys:
                 if keyboard.is_pressed(key):
                     # print(keyboard.key_to_scan_codes(key))
                     # print(f"{key} pressed")
-                    if key == 'backspace':
-                        ascii_canvas_memo.add_text(memo_x, memo_y, ' ')
-                        memo_x = memo_x - 1
-                        if memo_x < 0:
-                            memo_y = memo_y - 1
-                            memo_x = enter_line[memo_y]
-                    elif key == 'space':
-                        memo_x = memo_x + 1
-                    elif key == 'enter':
-                        enter_line[memo_y] = memo_x
-                        memo_y = memo_y + 1
-                        memo_x = 0
-                    elif key == 'ctrl+s':
-                        check = 0
-                        print('save_success')
-                        time.sleep(2.0)
-                    elif key == 'esc':
-                        check = 0
-                    elif 'a' <= key and key <= 'z':
-                        if ascii_canvas_memo.cols < memo_x:
+                    if choose != 0:
+                        if key == 'backspace':
+                            ascii_canvas_memo.add_text(memo_x, memo_y, ' ')
+                            memo_x = memo_x - 1
+                            if memo_x < 0:
+                                memo_y = memo_y - 1
+                                memo_x = enter_line[memo_y]
+                        elif key == 'space':
+                            memo_x = memo_x + 1
+                        elif key == 'enter':
                             enter_line[memo_y] = memo_x
-                            memo_x = 0
                             memo_y = memo_y + 1
-                        ascii_canvas_memo.add_text(memo_x, memo_y, key)
-                        memo_x = memo_x + 1
-                    elif '0' <= key and key <= '9':
-                        if ascii_canvas_memo.cols < memo_x:
-                            enter_line[memo_y] = memo_x
                             memo_x = 0
-                            memo_y = memo_y + 1
-                        ascii_canvas_memo.add_text(memo_x, memo_y, key)
-                        memo_x = memo_x + 1
-                    
-            # k = keyboard.read_key()  # in my python interpreter, this captures "enter up"
-            # k = keyboard.read_key()  # so repeat the line if in the python interpreter
-            # if 'a' <= k and k <= 'z':
-            #     if k == 'backspace':
-            #         ascii_canvas_memo.add_text(memo_x, memo_y, ' ')
-            #         memo_x = memo_x - 1
-            #         if memo_x < 0:
-            #             memo_x = ascii_canvas_memo.cols
-            #             memo_y = memo_y - 1
-            #     elif k == 'space':
-            #         memo_x = memo_x + 1
-            #     elif k == 'enter':
-            #         memo_y = memo_y + 1
-            #         memo_x = 0
-            #     elif k == 'esc':
-            #         check = 0
-            #     else:
-            #         if ascii_canvas_memo.cols < memo_x:
-            #             memo_x = 0
-            #             memo_y = memo_y + 1
-            #         ascii_canvas_memo.add_text(memo_x, memo_y, k)
-            #         memo_x = memo_x + 1
-            # elif 'A' <= k and k <= 'Z':
-            #     ascii_canvas_memo.add_text(memo_x, memo_y, 'AL')
-            #     memo_x = memo_x + 3
-            #     if ascii_canvas_memo.cols < memo_x:
-            #         memo_x = 0
-            #         memo_y = memo_y + 1
-            #     ascii_canvas_memo.add_text(memo_x, memo_y, k)
-            #     memo_x = memo_x + 1
-            # elif '0' <= k and k <= '9':
-            #     ascii_canvas_memo.add_text(memo_x, memo_y, 'Num')
-            #     memo_x = memo_x + 3
-            #     ascii_canvas_memo.add_text(memo_x, memo_y, k)
-            #     memo_x = memo_x + 1
+                        elif key == 'ctrl+s':
+                            f = open(specificDate +".txt", 'w')
+                            f.write(ascii_canvas_memo.get_canvas_as_str())
+                            f.close()
+                            check = 0
+                            print('save_success')
+                            time.sleep(2.0)
+                        elif key == 'esc':
+                            check = 0
+                        elif 'a' <= key and key <= 'z':
+                            if ascii_canvas_memo.cols < memo_x:
+                                enter_line[memo_y] = memo_x
+                                memo_x = 0
+                                memo_y = memo_y + 1
+                            ascii_canvas_memo.add_text(memo_x, memo_y, key)
+                            memo_x = memo_x + 1
+                        elif '0' <= key and key <= '9':
+                            if ascii_canvas_memo.cols < memo_x:
+                                enter_line[memo_y] = memo_x
+                                memo_x = 0
+                                memo_y = memo_y + 1
+                            ascii_canvas_memo.add_text(memo_x, memo_y, key)
+                            memo_x = memo_x + 1
+                    else:
+                        if key == 'esc':
+                            check = 0
         else:
             if keyboard.is_pressed('esc'):
                 break
@@ -232,6 +243,7 @@ def main(cols, lines):
                 if 3 < choose:
                     choose = 3
                 time.sleep(0.1)
+
             elif keyboard.is_pressed('enter'):
                 check = 1
 
@@ -278,7 +290,7 @@ def main(cols, lines):
 
         os.system('cls' if os.name == 'nt' else 'clear')
         
-        draw_memo(cols, lines, 40, 3)
+        draw_memo(cols, lines, 40, 3, specificDate)
 
         # k = keyboard.read_key()  # in my python interpreter, this captures "enter up"
         # k = keyboard.read_key()  # so repeat the line if in the python interpreter
@@ -289,4 +301,8 @@ def main(cols, lines):
         time.sleep(0.1)
 
 if __name__ == '__main__':
-    main(int(40 * 1.75), 40)
+    t=time.localtime()
+    Y=str(t.tm_year)
+    M=str(t.tm_mon)
+    D=str(t.tm_mday)
+    main(int(40 * 1.75), 40, Y, M, D)
