@@ -57,45 +57,45 @@ def draw_digital_second_hand(ascii_canvas, x, y, sec):
     """
     Draw second hand
     """
-    ascii_canvas.add_text(x, y + 0, line1[sec//10] + " " + line1[sec%10]);
-    ascii_canvas.add_text(x, y + 1, line2[sec//10] + " " + line2[sec%10]);
-    ascii_canvas.add_text(x, y + 2, line3[sec//10] + " " + line3[sec%10]);
-    ascii_canvas.add_text(x, y + 3, line4[sec//10] + " " + line4[sec%10]);
-    ascii_canvas.add_text(x, y + 4, line5[sec//10] + " " + line5[sec%10]);
-    ascii_canvas.add_text(x, y + 5, line6[sec//10] + " " + line6[sec%10]);
-    ascii_canvas.add_text(x, y + 6, line7[sec//10] + " " + line7[sec%10]);
-    ascii_canvas.add_text(x, y + 7, line8[sec//10] + " " + line8[sec%10]);
-    ascii_canvas.add_text(x, y + 8, line9[sec//10] + " " + line9[sec%10]);
+    ascii_canvas.add_text(x, y + 0, line1[sec//10] + " " + line1[sec%10])
+    ascii_canvas.add_text(x, y + 1, line2[sec//10] + " " + line2[sec%10])
+    ascii_canvas.add_text(x, y + 2, line3[sec//10] + " " + line3[sec%10])
+    ascii_canvas.add_text(x, y + 3, line4[sec//10] + " " + line4[sec%10])
+    ascii_canvas.add_text(x, y + 4, line5[sec//10] + " " + line5[sec%10])
+    ascii_canvas.add_text(x, y + 5, line6[sec//10] + " " + line6[sec%10])
+    ascii_canvas.add_text(x, y + 6, line7[sec//10] + " " + line7[sec%10])
+    ascii_canvas.add_text(x, y + 7, line8[sec//10] + " " + line8[sec%10])
+    ascii_canvas.add_text(x, y + 8, line9[sec//10] + " " + line9[sec%10])
 
 
 def draw_digital_minute_hand(ascii_canvas, x, y, min):
     """
     Draw minute hand
     """
-    ascii_canvas.add_text(x, y + 0, line1[min//10] + " " + line1[min%10] + " ");
-    ascii_canvas.add_text(x, y + 1, line2[min//10] + " " + line2[min%10] + " ");
-    ascii_canvas.add_text(x, y + 2, line3[min//10] + " " + line3[min%10] + " ");
-    ascii_canvas.add_text(x, y + 3, line4[min//10] + " " + line4[min%10] + " ");
-    ascii_canvas.add_text(x, y + 4, line5[min//10] + " " + line5[min%10] + " ");
-    ascii_canvas.add_text(x, y + 5, line6[min//10] + " " + line6[min%10] + " ");
-    ascii_canvas.add_text(x, y + 6, line7[min//10] + " " + line7[min%10] + " ");
-    ascii_canvas.add_text(x, y + 7, line8[min//10] + " " + line8[min%10] + " ");
-    ascii_canvas.add_text(x, y + 8, line9[min//10] + " " + line9[min%10] + " ");
+    ascii_canvas.add_text(x, y + 0, line1[min//10] + " " + line1[min%10] + " ")
+    ascii_canvas.add_text(x, y + 1, line2[min//10] + " " + line2[min%10] + " ")
+    ascii_canvas.add_text(x, y + 2, line3[min//10] + " " + line3[min%10] + " ")
+    ascii_canvas.add_text(x, y + 3, line4[min//10] + " " + line4[min%10] + " ")
+    ascii_canvas.add_text(x, y + 4, line5[min//10] + " " + line5[min%10] + " ")
+    ascii_canvas.add_text(x, y + 5, line6[min//10] + " " + line6[min%10] + " ")
+    ascii_canvas.add_text(x, y + 6, line7[min//10] + " " + line7[min%10] + " ")
+    ascii_canvas.add_text(x, y + 7, line8[min//10] + " " + line8[min%10] + " ")
+    ascii_canvas.add_text(x, y + 8, line9[min//10] + " " + line9[min%10] + " ")
 
 
 def draw_digital_hour_hand(ascii_canvas, x, y, hour):
     """
     Draw hour hand
     """
-    ascii_canvas.add_text(x, y + 0, line1[hour//10] + " " + line1[hour%10] + " ");
-    ascii_canvas.add_text(x, y + 1, line2[hour//10] + " " + line2[hour%10] + " ");
-    ascii_canvas.add_text(x, y + 2, line3[hour//10] + " " + line3[hour%10] + " ");
-    ascii_canvas.add_text(x, y + 3, line4[hour//10] + " " + line4[hour%10] + " ");
-    ascii_canvas.add_text(x, y + 4, line5[hour//10] + " " + line5[hour%10] + " ");
-    ascii_canvas.add_text(x, y + 5, line6[hour//10] + " " + line6[hour%10] + " ");
-    ascii_canvas.add_text(x, y + 6, line7[hour//10] + " " + line7[hour%10] + " ");
-    ascii_canvas.add_text(x, y + 7, line8[hour//10] + " " + line8[hour%10] + " ");
-    ascii_canvas.add_text(x, y + 8, line9[hour//10] + " " + line9[hour%10] + " ");
+    ascii_canvas.add_text(x, y + 0, line1[hour//10] + " " + line1[hour%10] + " ")
+    ascii_canvas.add_text(x, y + 1, line2[hour//10] + " " + line2[hour%10] + " ")
+    ascii_canvas.add_text(x, y + 2, line3[hour//10] + " " + line3[hour%10] + " ")
+    ascii_canvas.add_text(x, y + 3, line4[hour//10] + " " + line4[hour%10] + " ")
+    ascii_canvas.add_text(x, y + 4, line5[hour//10] + " " + line5[hour%10] + " ")
+    ascii_canvas.add_text(x, y + 5, line6[hour//10] + " " + line6[hour%10] + " ")
+    ascii_canvas.add_text(x, y + 6, line7[hour//10] + " " + line7[hour%10] + " ")
+    ascii_canvas.add_text(x, y + 7, line8[hour//10] + " " + line8[hour%10] + " ")
+    ascii_canvas.add_text(x, y + 8, line9[hour//10] + " " + line9[hour%10] + " ")
 
 def draw_digital_calendar(ascii_canvas, startday, lastday, today):
 
