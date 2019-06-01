@@ -214,9 +214,9 @@ def draw_digital_clock(cols, lines):
     ascii_canvas.add_text(41, y + 10, 'slash  key:   change clock')
 
      #draw change mode
-    x, y = 73, 20
+    x, y = 71, 20
     ascii_canvas.add_text(x, y, '[ ] Analog')
-    x, y = 90, 20
+    x, y = 88, 20
     ascii_canvas.add_text(x, y,  Style.BRIGHT + Fore.YELLOW + '[v] Digital' + Style.DIM)
 
     # print out canvas
@@ -471,19 +471,19 @@ def main():
                     todays = lastday
                 time.sleep(0.1)
 
-            elif keyboard.is_pressed('['):
+            elif keyboard.is_pressed('<'):
                 M = M - 1
                 time.sleep(0.1)
             
-            elif keyboard.is_pressed(']'):
+            elif keyboard.is_pressed('>'):
                 M = M + 1
                 time.sleep(0.1)
 
-            elif keyboard.is_pressed('<'):
+            elif keyboard.is_pressed('['):
                 Y = Y - 1
                 time.sleep(0.1)
 
-            elif keyboard.is_pressed('>'):
+            elif keyboard.is_pressed(']'):
                 Y = Y + 1
                 time.sleep(0.1)
 
